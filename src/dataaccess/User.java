@@ -21,6 +21,9 @@ final public class User implements Serializable {
 	public static User getLoggedInUser(){
 		return loggedInUser;
 	}
+	public static void setLoggedInUser(User user){
+		loggedInUser = user;
+	}
 	public String getUsername() {
 		return username;
 	}
