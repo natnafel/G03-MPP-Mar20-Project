@@ -1,0 +1,10 @@
+# igonre IDE specific files
+.classpath
+.project
+.idea/
+.idea/workspace.xml
+*.iml
+.settings/
+
+# ignore outfiles
+bin/
