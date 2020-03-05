@@ -17,8 +17,21 @@ final public class Book implements Serializable {
 	private List<Author> authors;
 	private String isbn;
 	private String title;
-	private int maxCheckoutLength;
-	public Book(String isbn, String title, int maxCheckoutLength, List<Author> authors) {
+	private CheckoutLength maxCheckoutLength;
+
+	public enum CheckoutLength{
+		SEVEN(7),
+		TWENTY_ONE(21);
+
+		private int days;
+		CheckoutLength(int days){
+			this.days = days;
+		}
+		public int getDays(){
+			return this.days;
+		}
+	}
+	public Book(String isbn, String title, CheckoutLength maxCheckoutLength, List<Author> authors) {
 		this.isbn = isbn;
 		this.title = title;
 		this.maxCheckoutLength = maxCheckoutLength;
@@ -109,7 +122,7 @@ final public class Book implements Serializable {
 		}
 		return null;
 	}
-	public int getMaxCheckoutLength() {
+	public CheckoutLength getMaxCheckoutLength() {
 		return maxCheckoutLength;
 	}
 
