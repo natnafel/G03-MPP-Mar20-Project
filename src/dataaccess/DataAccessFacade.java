@@ -11,6 +11,7 @@ import java.util.List;
 
 import business.Book;
 import business.LibraryMember;
+import business.User;
 
 
 public class DataAccessFacade implements DataAccess {
