@@ -6,28 +6,33 @@ final public class User implements Serializable {
 	
 	private static final long serialVersionUID = 5147265048973262104L;
 
-	private String id;
+	private String username;
 	
 	private String password;
-	private Auth authorization;
-	User(String id, String pass, Auth  auth) {
-		this.id = id;
+	private Auth[] authorization;
+
+	private static User loggedInUser;
+
+	User(String username, String pass, Auth[]  auths) {
+		this.username = username;
 		this.password = pass;
-		this.authorization = auth;
+		this.authorization = auths;
 	}
-	
-	public String getId() {
-		return id;
+	public static User getLoggedInUser(){
+		return loggedInUser;
+	}
+	public String getUsername() {
+		return username;
 	}
 	public String getPassword() {
 		return password;
 	}
-	public Auth getAuthorization() {
+	public Auth[] getAuthorization() {
 		return authorization;
 	}
 	@Override
 	public String toString() {
-		return "[" + id + ":" + password + ", " + authorization.toString() + "]";
+		return "[" + username + ":" + password + ", " + authorization.toString() + "]";
 	}
 	
 }
