@@ -89,10 +89,10 @@ public class TestData {
 	@SuppressWarnings("serial")
 	List<Book> allBooks = new ArrayList<Book>() {
 		{
-			add(new Book("23-11451", "The Big Fish", Book.CheckoutLength.TWENTY_ONE, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
-			add(new Book("28-12331", "Antartica", Book.CheckoutLength.SEVEN, Arrays.asList(allAuthors.get(2))));
-			add(new Book("99-22223", "Thinking Java", Book.CheckoutLength.TWENTY_ONE, Arrays.asList(allAuthors.get(3))));
-			add(new Book("48-56882", "Jimmy's First Day of School", Book.CheckoutLength.SEVEN, Arrays.asList(allAuthors.get(4))));
+			add(new Book(1, "23-11451", "The Big Fish", Book.CheckoutLength.TWENTY_ONE, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
+			add(new Book(2, "28-12331", "Antartica", Book.CheckoutLength.SEVEN, Arrays.asList(allAuthors.get(2))));
+			add(new Book(3, "99-22223", "Thinking Java", Book.CheckoutLength.TWENTY_ONE, Arrays.asList(allAuthors.get(3))));
+			add(new Book(4, "48-56882", "Jimmy's First Day of School", Book.CheckoutLength.SEVEN, Arrays.asList(allAuthors.get(4))));
 		}
 	};
 	

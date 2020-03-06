@@ -49,4 +49,12 @@ public class CheckoutRecord {
     public void setFinePaid(double finePaid) {
         this.finePaid = finePaid;
     }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public LibraryMember getMember() {
+        return member;
+    }
 }
