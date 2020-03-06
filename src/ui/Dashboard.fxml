@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="455.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.DashboardController">
+   <children>
+      <Label layoutX="29.0" layoutY="21.0" text="WELCOME">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="128.0" layoutY="24.0" text="USERNAME" />
+      <Label layoutX="635.0" layoutY="24.0" text="ADMIN" />
+      <ScrollPane layoutX="29.0" layoutY="61.0" prefHeight="313.0" prefWidth="820.0">
+         <content>
+            <JFXTreeTableView prefHeight="310.0" prefWidth="818.0">
+               <columns>
+                  <TreeTableColumn prefWidth="174.0" text="ISBN" />
+                  <TreeTableColumn prefWidth="201.0" text="TITLE" />
+                  <TreeTableColumn prefWidth="187.0" text="AUTHOR" />
+                  <TreeTableColumn minWidth="5.0" prefWidth="78.0" text="AVAIBILITY" />
+                  <TreeTableColumn minWidth="5.0" prefWidth="175.0" text="ACTION" />
+               </columns>
+            </JFXTreeTableView>
+         </content>
+      </ScrollPane>
+      <Label layoutX="695.0" layoutY="24.0" text="LIBRARIAN" />
+      <JFXButton layoutX="334.0" layoutY="400.0" text="ADD MEMBER" />
+      <JFXButton layoutX="451.0" layoutY="400.0" ripplerFill="#79ebf7" text="ADD BOOK" />
+   </children>
+</AnchorPane>
