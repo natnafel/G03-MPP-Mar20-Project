@@ -1,21 +1,30 @@
 package business;
 
+import java.util.List;
+
+import business.Book.CheckoutLength;
 import dataaccess.BookRepo;
 import dataaccess.BookRepoAccess;
 
 public class BookService {
 	BookRepoAccess bookRepo = new BookRepo();
-	boolean createBookCopy(Book book) throws LibrarySystemException {
+	public boolean createBookCopy(String isbn, int copyNum) throws LibrarySystemException {
 		// validation field for Book form
-		 if (book == null)
-			 throw new LibrarySystemException();
 		
-		return bookRepo.createBookCopy(book);
+		Book book = findBookByIsbn(isbn);
+		if (book == null )
+			throw new LibrarySystemException("Isbn does not exist");
+		if(book.getCopyNums().contains(copyNum)) {
+			throw new LibrarySystemException("Copy number already exists");
+		}
+		
+		BookCopy bookCopy = new BookCopy(book,copyNum,true);
+		return bookRepo.createBookCopy(bookCopy);
 	}
 	
-	 Book findBookByIsbn(String isbn) throws LibrarySystemException{
+	public Book findBookByIsbn(String isbn) {
 		 if (isbn == null)
-			 throw new LibrarySystemException();
+			 return null;
 		
 		return bookRepo.findBookByIsbn(isbn);
 	}
