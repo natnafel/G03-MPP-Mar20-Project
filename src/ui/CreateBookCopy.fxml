@@ -5,9 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="322.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.CreateBookCopy">
+<AnchorPane prefHeight="322.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.CreateBookCopyController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="235.0" layoutY="36.0" prefHeight="37.0" prefWidth="122.0" text="Create Book Copy" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="235.0" layoutY="36.0" prefHeight="37.0" prefWidth="122.0" text="Add Book Copy" />
       <JFXTextField layoutX="219.0" layoutY="115.0" promptText="ISBN" />
       <JFXTextField layoutX="219.0" layoutY="177.0" promptText="COPY NUMBER" />
       <JFXButton layoutX="239.0" layoutY="249.0" prefHeight="37.0" prefWidth="113.0" text="SUBMIT" />
