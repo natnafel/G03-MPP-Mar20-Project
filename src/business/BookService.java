@@ -29,9 +29,9 @@ public class BookService {
 		return bookRepo.findBookByIsbn(isbn);
 	}
 	 
-	 public LibraryMember findMemberByMemberId(String memberid) throws LibrarySystemException{
+	 public LibraryMember findMemberByMemberId(String memberid) {
 		 if (memberid == null)
-				 throw new LibrarySystemException();
+				 return null;
 		 return bookRepo.findMemberByMemberId(memberid);
 	 }
 	
