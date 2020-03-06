@@ -5,6 +5,11 @@
 .idea/workspace.xml
 *.iml
 .settings/
+*.DS_Store
+
+
 
 # ignore outfiles
 bin/
+out/
+*.class
