@@ -33,8 +33,7 @@ public class AccountRepository {
             }
             if(auths.size() == 0)
                 return null;
-            return new User(username, password, auths.toArray(new Auth[auths.size()]));
-
+            return new User(username, password, (Auth[]) auths.toArray());
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

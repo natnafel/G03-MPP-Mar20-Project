@@ -21,6 +21,6 @@
       <Label layoutX="269.0" layoutY="24.0" text="TITLE" />
       <RequiredFieldValidator layoutX="237.0" layoutY="268.0" />
       <RequiredFieldValidator layoutX="221.0" layoutY="321.0" />
-      <JFXPasswordField fx:id="passwordField" layoutX="200.0" layoutY="294.0" prefHeight="26.0" prefWidth="191.0" promptText="PASSWORD" />
+      <JFXPasswordField layoutX="200.0" layoutY="294.0" prefHeight="26.0" prefWidth="191.0" promptText="PASSWORD" />
    </children>
 </AnchorPane>
