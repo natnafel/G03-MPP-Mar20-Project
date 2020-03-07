@@ -11,7 +11,7 @@ public class AccountService {
 	}
 
 	
-	public boolean CreateMember(LibraryMember member)  {	
+	public boolean createMember(LibraryMember member)  {
 		// logic for field validation here
 		//if member.getMemberId() == null
 		if(member==null)
