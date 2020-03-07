@@ -49,8 +49,8 @@ final public class Book implements Serializable {
 		
 	}
 	
-	public void addCopy() {
-		//TODO
+	public void setBookCopy(List<BookCopy> copies) {
+		this.copies = copies;
 	}
 	
 
