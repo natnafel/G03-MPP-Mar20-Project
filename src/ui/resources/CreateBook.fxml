@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="286.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CreateBookController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="28.0" prefHeight="37.0" prefWidth="139.0" text="ADD BOOK">
+            <font>
+                <Font name="Harry P" size="27.0" />
+            </font></Label>
+        <JFXTextField layoutX="202.0" layoutY="130.0" promptText="COPY NUMBER" />
+        <JFXButton layoutX="221.0" layoutY="195.0" prefHeight="37.0" prefWidth="113.0" text="SUBMIT" />
+      <JFXTextField layoutX="202.0" layoutY="89.0" promptText="ISBN" />
+    </children>
+</AnchorPane>

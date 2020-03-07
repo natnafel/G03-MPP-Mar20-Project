@@ -8,14 +8,23 @@ public class CheckoutRecord {
     private LocalDate returnedDate;
     private LocalDate paidDate;
     private double finePaid;
-    private Book book;
+    private BookCopy bookCopy;
     private LibraryMember member;
 
-    public CheckoutRecord(LibraryMember libraryMember, Book book) {
+    public CheckoutRecord(LibraryMember libraryMember, BookCopy bookCopy) {
         this.checkoutDate = LocalDate.now();
-        this.dueDate = checkoutDate.plusDays(book.getMaxCheckoutLength().getDays());
+        this.dueDate = checkoutDate.plusDays(bookCopy.getBook().getMaxCheckoutLength().getDays());
         this.member = libraryMember;
-        this.book = book;
+        this.bookCopy = bookCopy;
+    }
+
+    public CheckoutRecord(LocalDate checkoutDate, LocalDate dueDate, LocalDate returnedDate, LocalDate paidDate, double finePaid, BookCopy bookCopy) {
+        this.checkoutDate = checkoutDate;
+        this.dueDate = dueDate;
+        this.returnedDate = returnedDate;
+        this.paidDate = paidDate;
+        this.finePaid = finePaid;
+        this.bookCopy = bookCopy;
     }
 
     public LocalDate getCheckoutDate() {
@@ -48,5 +57,13 @@ public class CheckoutRecord {
 
     public void setFinePaid(double finePaid) {
         this.finePaid = finePaid;
+    }
+
+    public BookCopy getBookCopy() {
+        return bookCopy;
+    }
+
+    public LibraryMember getMember() {
+        return member;
     }
 }

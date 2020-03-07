@@ -6,16 +6,12 @@ import dataaccess.AccountRepository;
 
 public class AccountService {
 	AccountRepository acountRepo = new AccountRepository();
-	public boolean validateUser(String username, String password)  {
-		
-		User userFromRepo = acountRepo.getUser(username, password);
-		if(userFromRepo == null)
-			return false;		
-		return true;
+	public User validateUser(String username, String password)  {
+		return acountRepo.getUser(username, password);
 	}
 
 	
-	public boolean CreateMember(LibraryMember member)  {	
+	public boolean createMember(LibraryMember member)  {
 		// logic for field validation here
 		//if member.getMemberId() == null
 		if(member==null)

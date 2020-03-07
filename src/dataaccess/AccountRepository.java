@@ -124,4 +124,28 @@ public class AccountRepository {
             }
         }
     }
+
+    public List<LibraryMember> getAllLibraryMembers(){
+        List<LibraryMember> libraryMemberList = new ArrayList<>();
+        Connection connection = null;
+        try {
+            connection = DBConnectionHelper.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select memberId from LibraryMember");
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                libraryMemberList.add(findMemberByMemberId(rs.getString("memberId")));
+            }
+
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+        }
+        return libraryMemberList;
+    }
 }

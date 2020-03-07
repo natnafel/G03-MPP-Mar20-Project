@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="455.0" prefWidth="901.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.DashboardController">
+   <children>
+      <Label fx:id="userNameLabel" layoutX="29.0" layoutY="18.0" prefHeight="32.0" prefWidth="124.0" text="USERNAME" textFill="#9f5011">
+         <font>
+            <Font name="Harry P" size="27.0" />
+         </font></Label>
+      <Label layoutX="166.0" layoutY="22.0" style="-fx-background-color: rgba(195,195,195,0.98); -fx-background-radius: 5px; " text="ADMIN" AnchorPane.topAnchor="22.0">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+      <ScrollPane layoutX="29.0" layoutY="61.0" prefHeight="313.0" prefWidth="820.0">
+         <content>
+            <JFXTreeTableView prefHeight="310.0" prefWidth="818.0">
+               <columns>
+                  <TreeTableColumn prefWidth="174.0" text="ISBN" />
+                  <TreeTableColumn prefWidth="201.0" text="TITLE" />
+                  <TreeTableColumn prefWidth="187.0" text="AUTHOR" />
+                  <TreeTableColumn minWidth="5.0" prefWidth="78.0" text="AVAIBILITY" />
+                  <TreeTableColumn minWidth="5.0" prefWidth="175.0" text="ACTION" />
+               </columns>
+            </JFXTreeTableView>
+         </content>
+      </ScrollPane>
+      <Label layoutX="223.0" layoutY="22.0" style="-fx-background-color: rgba(195,195,195,0.98); -fx-background-radius: 5px; " text="LIBRARIAN">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+      <JFXButton buttonType="RAISED" layoutX="315.0" layoutY="383.0" prefHeight="44.0" prefWidth="124.0" style="-fx-background-color: #9f5011;" text="ADD MEMBER" textFill="WHITE" />
+      <JFXButton buttonType="RAISED" layoutX="451.0" layoutY="383.0" prefHeight="44.0" prefWidth="124.0" style="-fx-background-color: #9f5011;" text="ADD BOOK" textFill="WHITE" />
+      <JFXButton buttonType="RAISED" layoutX="775.0" layoutY="20.0" onMouseClicked="#logout" prefHeight="27.0" prefWidth="74.0" style="-fx-background-color: #ff622e;" text="Logout" textFill="WHITE" />
+      <JFXTextField layoutX="598.0" layoutY="20.0" promptText="Search" unFocusColor="#979797" />
+   </children>
+</AnchorPane>

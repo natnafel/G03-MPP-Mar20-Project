@@ -13,7 +13,8 @@ import java.util.Optional;
 final public class Book implements Serializable {
 	
 	private static final long serialVersionUID = 6110690276685962829L;
-	private BookCopy[] copies;
+	private int id;
+	private List<BookCopy> copies;
 	private List<Author> authors;
 	private String isbn;
 	private String title;
@@ -31,22 +32,12 @@ final public class Book implements Serializable {
 			return this.days;
 		}
 	}
-	public Book(String isbn, String title, CheckoutLength maxCheckoutLength, List<Author> authors) {
+	public Book(int id, String isbn, String title, CheckoutLength maxCheckoutLength, List<Author> authors) {
 		this.isbn = isbn;
+		this.id = id;
 		this.title = title;
 		this.maxCheckoutLength = maxCheckoutLength;
 		this.authors = Collections.unmodifiableList(authors);
-		copies = new BookCopy[]{new BookCopy(this, 1, true)};	
-	}
-	
-	public void updateCopies(BookCopy copy) {
-		for(int i = 0; i < copies.length; ++i) {
-			BookCopy c = copies[i];
-			if(c.equals(copy)) {
-				copies[i] = copy;
-				
-			}
-		}
 	}
 
 	public List<Integer> getCopyNums() {
@@ -58,14 +49,11 @@ final public class Book implements Serializable {
 		
 	}
 	
-	public void addCopy() {
-		BookCopy[] newArr = new BookCopy[copies.length + 1];
-		System.arraycopy(copies, 0, newArr, 0, copies.length);
-		newArr[copies.length] = new BookCopy(this, copies.length +1, true);
-		copies = newArr;
+	public void setBookCopy(List<BookCopy> copies) {
+		this.copies = copies;
 	}
 	
-	
+
 	@Override
 	public boolean equals(Object ob) {
 		if(ob == null) return false;
@@ -79,7 +67,7 @@ final public class Book implements Serializable {
 		if(copies == null) {
 			return false;
 		}
-		return Arrays.stream(copies)
+		return copies.stream()
 				     .map(l -> l.isAvailable())
 				     .reduce(false, (x,y) -> x || y);
 	}
@@ -89,13 +77,13 @@ final public class Book implements Serializable {
 	}
 	
 	public int getNumCopies() {
-		return copies.length;
+		return copies.size();
 	}
 	
 	public String getTitle() {
 		return title;
 	}
-	public BookCopy[] getCopies() {
+	public List<BookCopy> getCopies() {
 		return copies;
 	}
 	
@@ -109,7 +97,7 @@ final public class Book implements Serializable {
 	
 	public BookCopy getNextAvailableCopy() {	
 		Optional<BookCopy> optional 
-			= Arrays.stream(copies)
+			= copies.stream()
 			        .filter(x -> x.isAvailable()).findFirst();
 		return optional.isPresent() ? optional.get() : null;
 	}
@@ -122,12 +110,12 @@ final public class Book implements Serializable {
 		}
 		return null;
 	}
+
+	public int getId(){
+		return this.id;
+	}
 	public CheckoutLength getMaxCheckoutLength() {
 		return maxCheckoutLength;
 	}
 
-	
-	
-	
-	
 }

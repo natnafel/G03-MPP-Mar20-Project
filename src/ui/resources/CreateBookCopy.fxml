@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="255.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CreateBookCopyController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="42.0" prefHeight="37.0" prefWidth="139.0" text="ADD BOOK COPY">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <JFXTextField layoutX="202.0" layoutY="116.0" promptText="COPY NUMBER" />
+      <JFXButton layoutX="221.0" layoutY="177.0" prefHeight="37.0" prefWidth="113.0" text="SUBMIT" />
+   </children>
+</AnchorPane>
