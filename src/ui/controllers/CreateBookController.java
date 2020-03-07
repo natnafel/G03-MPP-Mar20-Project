@@ -1,4 +1,4 @@
-package ui;
+package ui.controllers;
 
 public class CreateBookController {
 

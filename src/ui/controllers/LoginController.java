@@ -1,4 +1,4 @@
-package ui;
+package ui.controllers;
 
 import business.AccountService;
 import com.jfoenix.controls.JFXPasswordField;

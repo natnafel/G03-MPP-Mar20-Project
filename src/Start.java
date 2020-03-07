@@ -1,5 +1,3 @@
-package ui;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +11,7 @@ public class Start extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("resources/Login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("ui/resources/Login.fxml"));
 		stage.setTitle("Library System");
 		stage.setScene(new Scene(root, 572, 459));
 		stage.show();
