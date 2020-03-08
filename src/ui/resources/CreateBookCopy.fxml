@@ -6,13 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="255.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CreateBookCopyController">
+<AnchorPane prefHeight="255.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CreateBookCopyController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="42.0" prefHeight="37.0" prefWidth="139.0" text="ADD BOOK COPY">
          <font>
             <Font size="15.0" />
          </font></Label>
-      <JFXTextField layoutX="202.0" layoutY="116.0" promptText="COPY NUMBER" />
-      <JFXButton layoutX="221.0" layoutY="177.0" prefHeight="37.0" prefWidth="113.0" text="SUBMIT" />
+          <Label fx:id="successMsg" layoutX="89.0" layoutY="238.0" text=" Member created successfully" textFill="#ee3535" visible="false" />
+          <JFXTextField  fx:id="copyNumField" layoutX="204.0" layoutY="85.0" promptText="COPY NUMBER"  />
+      <JFXButton onAction="#createBookCopy" layoutX="221.0" layoutY="177.0" prefHeight="37.0" prefWidth="113.0" text="SUBMIT" />
+       <Label fx:id="failureMsg" layoutX="89.0" layoutY="238.0" text=" Creating book copy failed " textFill="#ee3535" visible="false" />
    </children>
 </AnchorPane>
