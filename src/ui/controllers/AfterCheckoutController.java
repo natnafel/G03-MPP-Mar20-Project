@@ -45,7 +45,7 @@ public class AfterCheckoutController implements Initializable{
     private TreeTableColumn<CheckoutEntry, String> dueDateColumn;
 
     @FXML
-    private JFXTreeTableView<CheckoutEntry> tableView;
+    private JFXTreeTableView<CheckoutEntry> checkoutTable;
 
     public void initializeData(CheckoutRecord checkoutRecord){
         this.checkoutRecord = checkoutRecord;
@@ -56,8 +56,6 @@ public class AfterCheckoutController implements Initializable{
         ((Stage) afterCheckoutPane.getScene().getWindow()).close();
     }
 
-    @FXML
-    private TreeTableColumn<CheckoutEntry, String> copyNumColumn;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isbnColumn.setCellValueFactory(data -> data.getValue().getValue().isbn);
@@ -79,7 +77,7 @@ public class AfterCheckoutController implements Initializable{
 
 
         final TreeItem<CheckoutEntry> root = new RecursiveTreeItem<CheckoutEntry>(checkoutEntryObservableList, RecursiveTreeObject::getChildren);
-        tableView.setRoot(root);
+        checkoutTable.setRoot(root);
 
     }
 
