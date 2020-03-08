@@ -81,7 +81,6 @@ public class AccountRepository {
         try{
             connection = DBConnectionHelper.getConnection();
             Address address = member.getAddress();
-            connection.setAutoCommit(false);
             PreparedStatement addressStatement = connection.prepareStatement("INSERT INTO address (street, city, state, zip) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             addressStatement.setString(1, address.getStreet());
             addressStatement.setString(2, address.getCity());
@@ -89,27 +88,31 @@ public class AccountRepository {
             addressStatement.setString(4, address.getZip());
 
             addressStatement.executeUpdate();
-            ResultSet addressSet = addressStatement.getGeneratedKeys();
 
-            if(addressSet.first()){
+            Connection helper = DBConnectionHelper.getConnection();
+            Statement stmt = helper.createStatement();
+            ResultSet addressSet =  stmt.executeQuery("select id from address ORDER by id DESC limit 1");
+
+            if(addressSet.next()){
                 int addressId = addressSet.getInt(1);
-                PreparedStatement memberStatement = connection.prepareStatement("INSERT INTO LibraryMember (memberId, firstName, lastName, telephone, address_id) VALUE (?, ?, ?, ?, ?)");
+                Connection addConn = DBConnectionHelper.getConnection();
+                PreparedStatement memberStatement = addConn.prepareStatement("INSERT INTO LibraryMember (memberId, firstName, lastName, telephone, address_id) VALUES (?, ?, ?, ?, ?)");
                 memberStatement.setString(1, member.getMemberId());
                 memberStatement.setString(2, member.getFirstName());
                 memberStatement.setString(3, member.getLastName());
                 memberStatement.setString(4, member.getTelephone());
                 memberStatement.setInt(5, addressId);
+                helper.close();
                 memberStatement.executeUpdate();
-                connection.commit();
+                addConn.close();
                 return true;
             }
-            connection.rollback();
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
             try {
                 if (connection != null) {
-                    connection.rollback();
+                    connection.close();
                 }
             } catch (SQLException e1) {
                 e1.printStackTrace();
