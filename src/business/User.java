@@ -1,6 +1,8 @@
 package business;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 final public class User implements Serializable {
 	
@@ -12,6 +14,10 @@ final public class User implements Serializable {
 	private Auth[] authorization;
 
 	private static User loggedInUser;
+
+	public boolean hasAuth(Auth auth){
+		return Arrays.asList(authorization).contains(auth);
+	}
 
 	public User(String username, String pass, Auth[]  auths) {
 		this.username = username;
