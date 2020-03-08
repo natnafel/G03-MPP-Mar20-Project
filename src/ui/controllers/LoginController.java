@@ -34,11 +34,12 @@ public class LoginController {
             User.setLoggedInUser(user);
             loginErrorMsg.setVisible(false);
             Parent root = FXMLLoader.load(getClass().getResource("../resources/Dashboard.fxml"));
-            Scene scene = new Scene(root, 901.0, 455.0);
+            Scene scene = new Scene(root, 1028.0, 638.0);
             Stage stage = new Stage();
             stage.setTitle("Dashboard");
             stage.setScene(scene);
             stage.show();
+            stage.setResizable(false);
             Stage stage1 = (Stage) loginErrorMsg.getScene().getWindow();
             stage1.close();
         }

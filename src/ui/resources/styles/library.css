@@ -5,3 +5,8 @@
 .label {
    -fx-text-fill: #000099;
 }
+
+
+@font-face {font-family: 'harry';
+    src: url('/lib/harry.ttf');
+}
