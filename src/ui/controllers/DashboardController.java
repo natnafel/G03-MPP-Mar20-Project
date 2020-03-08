@@ -5,7 +5,10 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.controls.JFXTreeTableView;
 
+import dataaccess.AccountRepository;
 import dataaccess.BookRepository;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +24,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,9 +34,16 @@ import java.util.stream.Collectors;
 public class DashboardController implements Initializable {
 
     private BookService bookService = new BookService();
+    private AccountRepository accRepo = new AccountRepository();
 
     @FXML
     private Label userNameLabel;
+
+    @FXML
+    private Label adminOn;
+
+    @FXML
+    private Label libOn;
 
     @FXML
     private JFXTreeTableView<DashboardTableEntry> treeViewJFX;
@@ -52,9 +63,24 @@ public class DashboardController implements Initializable {
     @FXML
     private TreeTableColumn<DashboardTableEntry, String> actionCol;
 
+    @FXML
+    private TreeTableColumn<DashboardTableEntry, String> copyNumCol;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userNameLabel.setText(User.getLoggedInUser().getUsername());
+
+        //Roles visibility
+        if(User.getLoggedInUser().hasAuth(Auth.ADMIN)) {
+            adminOn.setVisible(true);
+            libOn.setVisible((false));
+        }
+        else {
+            adminOn.setVisible(false);
+            libOn.setVisible(true);
+        }
+
         List<Book> books = bookService.getAllBooks();
         ObservableList<DashboardTableEntry> dashboardTableEntryObservableList = FXCollections.observableArrayList();
 
@@ -64,7 +90,7 @@ public class DashboardController implements Initializable {
                     book.getAuthors()) {
                 authorName.append(a.getFullName()).append(", ");
             }
-            return new DashboardTableEntry(book.getIsbn(), book.getTitle(), authorName.toString(), book.isAvailable()+"", " ");
+            return new DashboardTableEntry(book.getIsbn(), book.getTitle(), authorName.toString(), book.isAvailable()+"", " ", book.getNumCopies()+"");
         }).collect(Collectors.toList()));
 
         final TreeItem<DashboardTableEntry> root = new RecursiveTreeItem<>(dashboardTableEntryObservableList, RecursiveTreeObject::getChildren);
@@ -77,6 +103,7 @@ public class DashboardController implements Initializable {
         authorCol.setCellValueFactory(data -> data.getValue().getValue().author);
         avaCol.setCellValueFactory(data -> data.getValue().getValue().available);
         actionCol.setCellValueFactory(data -> data.getValue().getValue().available);
+        copyNumCol.setCellValueFactory(data -> data.getValue().getValue().copyNum);
 
     }
 
@@ -99,13 +126,33 @@ public class DashboardController implements Initializable {
         StringProperty author;
         StringProperty available;
         StringProperty action;
+        StringProperty copyNum;
 
-        public DashboardTableEntry(String isbn, String title, String author, String available, String action) {
+        public DashboardTableEntry(String isbn, String title, String author, String available, String action, String copyNum) {
             this.isbn = new SimpleStringProperty(isbn);
             this.title = new SimpleStringProperty(title);
             this.author = new SimpleStringProperty(author);
             this.available = new SimpleStringProperty(available);
             this.action = new SimpleStringProperty(action);
+            this.copyNum = new SimpleStringProperty(copyNum);
+
         }
     }
+
+    //Scene Navigation
+    public void addMember(Event event) throws Exception {
+        //Auth.LIBRARIAN =
+        Parent root = FXMLLoader.load(getClass().getResource("../resources/CreateMember.fxml"));
+        Scene scene = new Scene(root, 530, 368);
+        Stage stage = new Stage();
+        stage.setTitle("Add Member");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+        stage.setResizable(false);
+
+    }
+
+
+
 }

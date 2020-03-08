@@ -216,7 +216,7 @@ public class BookRepository {
                 Connection authConn = DBConnectionHelper.getConnection();
                 PreparedStatement preparedStatement2 = authConn.prepareStatement("SELECT a.*, address.* from author_book ab " +
                         "join author a on a.id = ab.author_id " +
-                        "join address on a.address_id = address.id" +
+                        "join address on a.address_id = address.id " +
                         "where ab.book_id = ?");
                 preparedStatement2.setInt(1, bookId);
                 ResultSet rs2 = preparedStatement2.executeQuery();

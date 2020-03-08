@@ -15,5 +15,6 @@ public class Start extends Application {
 		stage.setTitle("Library System");
 		stage.setScene(new Scene(root, 572, 491));
 		stage.show();
+		stage.setResizable(false);
 	}
 }
