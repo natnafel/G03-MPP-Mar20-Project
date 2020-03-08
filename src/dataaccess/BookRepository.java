@@ -151,7 +151,7 @@ public class BookRepository {
             return null;
         }
     }
-    public boolean createCheckoutRecord(CheckoutRecord checkoutRecord){
+    public CheckoutRecord createCheckoutRecord(CheckoutRecord checkoutRecord){
         Connection connection = null;
         try {
             connection = DBConnectionHelper.getConnection();
@@ -175,10 +175,10 @@ public class BookRepository {
 
             preparedStatement.executeUpdate();
             connection.close();
-            return true;
+            return checkoutRecord;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
     public List<CheckoutRecord> getCheckoutRecordsForMember(String memberId){

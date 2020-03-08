@@ -33,6 +33,9 @@ public class Person implements Serializable {
 	public String getTelephone() {
 		return telephone;
 	}
+	public String getFullName(){
+		return firstName + " " + lastName;
+	}
 	public Address getAddress() {
 		return address;
 	}
