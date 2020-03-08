@@ -1,14 +1,14 @@
 package business;
 
+import dataaccess.BookRepository;
+
 import java.util.List;
 
-import business.Book.CheckoutLength;
-import dataaccess.BookRepo;
-import dataaccess.BookRepoAccess;
-
 public class BookService {
-	BookRepoAccess bookRepo = new BookRepo();
-	public boolean createBookCopy(String isbn, int copyNum) throws LibrarySystemException {
+
+	private BookRepository bookRepository = new BookRepository();
+
+	public BookCopy createBookCopy(String isbn, int copyNum) throws LibrarySystemException {
 		// validation field for Book form
 		
 		Book book = findBookByIsbn(isbn);
@@ -19,20 +19,22 @@ public class BookService {
 		}
 		
 		BookCopy bookCopy = new BookCopy(book,copyNum,true);
-		return bookRepo.createBookCopy(bookCopy);
+		return bookRepository.createBookCopy(bookCopy);
 	}
 	
 	public Book findBookByIsbn(String isbn) {
 		 if (isbn == null)
 			 return null;
 		
-		return bookRepo.findBookByIsbn(isbn);
+		return bookRepository.findBookByIsbn(isbn);
 	}
-	 
-	 public LibraryMember findMemberByMemberId(String memberid) {
-		 if (memberid == null)
-				 return null;
-		 return bookRepo.findMemberByMemberId(memberid);
-	 }
-	
+
+	public CheckoutRecord createCheckoutRecord(LibraryMember libraryMember, Book book){
+	    CheckoutRecord checkoutRecordToPersist = new CheckoutRecord(libraryMember, book.getNextAvailableCopy());
+	    return bookRepository.createCheckoutRecord(checkoutRecordToPersist);
+    }
+
+    public List<Book> getAllBooks(){
+	    return bookRepository.getAllBooks();
+    }
 }
