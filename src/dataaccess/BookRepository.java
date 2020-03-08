@@ -4,7 +4,6 @@ import business.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class BookRepository {
                     "where b.isbn = ?");
             preparedStatement.setString(1, isbn);
             ResultSet rs = preparedStatement.executeQuery();
-            connection.close();
             if(rs.first()){
                 int bookId = rs.getInt("id");
                 String title = rs.getString("title");
@@ -31,7 +29,7 @@ public class BookRepository {
                 Connection authConn = DBConnectionHelper.getConnection();
                 PreparedStatement preparedStatement2 = authConn.prepareStatement("SELECT a.*, address.* from author_book ab " +
                         "join author a on a.id = ab.author_id " +
-                        "join address on a.address_id = address.id" +
+                        "join address on a.address_id = address.id " +
                         "where ab.book_id = ?");
                 preparedStatement2.setInt(1, bookId);
                 ResultSet rs2 = preparedStatement2.executeQuery();
@@ -48,8 +46,8 @@ public class BookRepository {
                 Book book = new Book(bookId, isbn, title, checkoutLength, authors);
 
                 Connection copyConn = DBConnectionHelper.getConnection();
-                PreparedStatement preparedStatement3 = copyConn.prepareStatement("SELECT * from book_copies bc " +
-                        "where bc.book_id = ?");
+                PreparedStatement preparedStatement3 = copyConn.prepareStatement("SELECT * from book_copies " +
+                        "where book_copies.book_id = ?");
                 preparedStatement3.setInt(1, bookId);
                 ResultSet rs3 = preparedStatement3.executeQuery();
                 List<BookCopy> bookCopies = new ArrayList<>();
@@ -58,6 +56,7 @@ public class BookRepository {
                 }
                 copyConn.close();
                 book.setBookCopy(bookCopies);
+                connection.close();
 
                 return book;
             }
@@ -99,7 +98,6 @@ public class BookRepository {
             Connection connection = DBConnectionHelper.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select * from book");
             ResultSet booksRS = preparedStatement.executeQuery();
-            connection.close();
 
             List<Book> bookList = new ArrayList<>();
             while(booksRS.next()){
@@ -114,10 +112,10 @@ public class BookRepository {
                     }
                 }
                 Connection authConn = DBConnectionHelper.getConnection();
-                preparedStatement = authConn.prepareStatement("SELECT a.*, address.* from author_book ab " +
-                        "join author a on a.id = ab.author_id " +
-                        "join address on a.address_id = address.id" +
-                        "where ab.book_id = ?");
+                preparedStatement = authConn.prepareStatement("SELECT a.*, address.* from author_book ab\n" +
+                        "                        join author a on a.id = ab.author_id\n" +
+                        "                        join address on a.address_id = address.id\n" +
+                        "                        where ab.book_id = ?");
                 preparedStatement.setInt(1, bookId);
                 ResultSet rs2 = preparedStatement.executeQuery();
                 List<Author> authors = new ArrayList<>();
@@ -133,10 +131,10 @@ public class BookRepository {
                 Book book = new Book(bookId, isbn, title, checkoutLength, authors);
 
                 Connection copyConn = DBConnectionHelper.getConnection();
-                PreparedStatement preparedStatement3 = copyConn.prepareStatement("SELECT * from book_copies bc " +
-                        "where bc.book_id = ?");
+                PreparedStatement preparedStatement3 = copyConn.prepareStatement("SELECT * from book_copies\n" +
+                        "                        where book_id = ?");
                 preparedStatement3.setInt(1, bookId);
-                ResultSet rs3 = preparedStatement.executeQuery();
+                ResultSet rs3 = preparedStatement3.executeQuery();
                 List<BookCopy> bookCopies = new ArrayList<>();
                 while (rs3.next()){
                     bookCopies.add(new BookCopy(book, rs3.getInt("id"), rs3.getInt("copyNum"), rs3.getBoolean("isAvailable")));
@@ -145,13 +143,14 @@ public class BookRepository {
                 book.setBookCopy(bookCopies);
                 bookList.add(book);
             }
+            connection.close();
             return bookList;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
-    public boolean createCheckoutRecord(CheckoutRecord checkoutRecord){
+    public CheckoutRecord createCheckoutRecord(CheckoutRecord checkoutRecord){
         Connection connection = null;
         try {
             connection = DBConnectionHelper.getConnection();
@@ -175,10 +174,10 @@ public class BookRepository {
 
             preparedStatement.executeUpdate();
             connection.close();
-            return true;
+            return checkoutRecord;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
     public List<CheckoutRecord> getCheckoutRecordsForMember(String memberId){

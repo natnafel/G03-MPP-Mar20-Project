@@ -98,8 +98,8 @@ final public class Book implements Serializable {
 	public BookCopy getNextAvailableCopy() {	
 		Optional<BookCopy> optional 
 			= copies.stream()
-			        .filter(x -> x.isAvailable()).findFirst();
-		return optional.isPresent() ? optional.get() : null;
+			        .filter(BookCopy::isAvailable).findFirst();
+		return optional.orElse(null);
 	}
 	
 	public BookCopy getCopy(int copyNum) {

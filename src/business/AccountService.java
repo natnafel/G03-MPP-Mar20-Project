@@ -5,9 +5,9 @@ import dataaccess.AccountRepository;
 
 
 public class AccountService {
-	AccountRepository acountRepo = new AccountRepository();
+	AccountRepository accountRepository = new AccountRepository();
 	public User validateUser(String username, String password)  {
-		return acountRepo.getUser(username, password);
+		return accountRepository.getUser(username, password);
 	}
 
 	
@@ -16,7 +16,11 @@ public class AccountService {
 		//if member.getMemberId() == null
 		if(member==null)
 			return false;
-		return acountRepo.createMember(member)	;
+		return accountRepository.createMember(member)	;
 	}
+
+	public LibraryMember findMemberByMemberId(String memberId){
+	    return accountRepository.findMemberByMemberId(memberId);
+    }
 
 }
