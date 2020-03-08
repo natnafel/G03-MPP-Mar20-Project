@@ -78,6 +78,7 @@ public class AfterCheckoutController implements Initializable{
 
         final TreeItem<CheckoutEntry> root = new RecursiveTreeItem<CheckoutEntry>(checkoutEntryObservableList, RecursiveTreeObject::getChildren);
         checkoutTable.setRoot(root);
+        checkoutTable.setShowRoot(false);
 
     }
 
