@@ -52,14 +52,14 @@ public class AccountRepository {
         Connection connection = null;
         try{
             connection = DBConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from LibraryMember m " +
+            PreparedStatement preparedStatement = connection.prepareStatement("select *, m.id mId from LibraryMember m " +
                     "join address a on m.address_id = a.id where memberId = ?");
             preparedStatement.setString(1, memberId);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()){
                 Address address = new Address(rs.getString("street"), rs.getString("city"),
                         rs.getString("state"), rs.getString("zip"));
-                return new LibraryMember(memberId, rs.getString("firstName"),
+                return new LibraryMember(rs.getInt("mId"), memberId, rs.getString("firstName"),
                         rs.getString("lastName"), rs.getString("telephone"), address);
             }
             return null;

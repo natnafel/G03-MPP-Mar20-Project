@@ -19,7 +19,7 @@ public class ConfirmationController {
     private Book book;
 
     public void initializeDate(LibraryMember libraryMember, Book book){
-        this.libraryMember = (new AccountService()).findMemberByMemberId("REG-1");// TODO replace hard code
+        this.libraryMember = libraryMember;
         this.book = book;
     }
 

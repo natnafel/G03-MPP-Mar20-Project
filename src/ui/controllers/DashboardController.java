@@ -7,9 +7,6 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.controls.JFXTreeTableView;
 
 import dataaccess.AccountRepository;
-import dataaccess.BookRepository;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -59,9 +56,6 @@ public class DashboardController implements Initializable {
 
     @FXML
     private TreeTableColumn<DashboardTableEntry, String> authorCol;
-
-//    @FXML
-//    private TreeTableColumn<DashboardTableEntry, String> avaCol;
 
     @FXML
     private TreeTableColumn<DashboardTableEntry, String> actionCol;
@@ -124,7 +118,7 @@ public class DashboardController implements Initializable {
                 } else {
                     btn.setOnAction(event -> {
                         DashboardTableEntry entry = getTreeTableView().getTreeItem(getIndex()).getValue();
-                        showToCheckoutPage(entry.book);
+                        showCheckoutPage(entry.book);
                     });
                     setGraphic(btn);
                     setText(null);
@@ -160,16 +154,17 @@ public class DashboardController implements Initializable {
 
     }
 
-    private void showToCheckoutPage(Book book) {
+    private void showCheckoutPage(Book book) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/CheckoutConfirmation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/MemberConfirmation.fxml"));
             Parent root = loader.load();
-            ConfirmationController ctrl = loader.getController();
-            ctrl.initializeDate(null, book);
+            MemberConfirmationController ctrl = loader.getController();
+            ctrl.initializeData(book);
             Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setTitle("Checkout");
+            stage.setTitle("Associate member with checkout");
             stage.setScene(new Scene(root));
             stage.show();
+            stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
