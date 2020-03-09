@@ -16,7 +16,7 @@ public class BookRepository {
                     "where b.isbn = ?");
             preparedStatement.setString(1, isbn);
             ResultSet rs = preparedStatement.executeQuery();
-            if(rs.first()){
+            if(rs.next()){
                 int bookId = rs.getInt("id");
                 String title = rs.getString("title");
                 Book.CheckoutLength checkoutLength = null;
@@ -70,15 +70,17 @@ public class BookRepository {
         Connection connection = null;
         try {
             connection = DBConnectionHelper.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO book_copies (copyNum, isAvailable, book_id) VALUES (?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO book_copies (copyNum, isAvailable, book_id) VALUES (?, ?, ?)");
             preparedStatement.setInt(1, bookCopy.getCopyNum());
             preparedStatement.setBoolean(2, bookCopy.isAvailable());
             preparedStatement.setInt(3, bookCopy.getBook().getId());
             preparedStatement.executeUpdate();
-            ResultSet keys = preparedStatement.getGeneratedKeys();
-            if (keys.first()){
-                return new BookCopy(bookCopy.getBook(), keys.getInt(1), bookCopy.getCopyNum(), bookCopy.isAvailable());
+            connection.close();
+            connection = DBConnectionHelper.getConnection();
+            preparedStatement = connection.prepareStatement("select id from book_copies order by id desc limit 1");
+            ResultSet keys = preparedStatement.executeQuery();
+            if (keys.next()){
+                return new BookCopy(bookCopy.getBook(), keys.getInt("id"), bookCopy.getCopyNum(), bookCopy.isAvailable());
             }
             return null;
         } catch (SQLException e) {

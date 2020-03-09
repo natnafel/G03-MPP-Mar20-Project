@@ -60,11 +60,14 @@ public class DashboardController implements Initializable {
     @FXML
     private TreeTableColumn<DashboardTableEntry, String> authorCol;
 
-    @FXML
-    private TreeTableColumn<DashboardTableEntry, String> avaCol;
+//    @FXML
+//    private TreeTableColumn<DashboardTableEntry, String> avaCol;
 
     @FXML
     private TreeTableColumn<DashboardTableEntry, String> actionCol;
+
+    @FXML
+    private TreeTableColumn<DashboardTableEntry, String> addNewCol;
 
     @FXML
     private TreeTableColumn<DashboardTableEntry, String> copyNumCol;
@@ -93,7 +96,7 @@ public class DashboardController implements Initializable {
                     book.getAuthors()) {
                 authorName.append(a.getFullName()).append(", ");
             }
-            return new DashboardTableEntry(book, book.getIsbn(), book.getTitle(), authorName.toString(), book.isAvailable()+"" , book.getNumCopies()+"");
+            return new DashboardTableEntry(book, book.getIsbn(), book.getTitle(), authorName.toString() , book.getNumCopies()+"");
         }).collect(Collectors.toList()));
 
         final TreeItem<DashboardTableEntry> root = new RecursiveTreeItem<>(dashboardTableEntryObservableList, RecursiveTreeObject::getChildren);
@@ -104,9 +107,10 @@ public class DashboardController implements Initializable {
         isbnCol.setCellValueFactory(data -> data.getValue().getValue().isbn);
         titleCol.setCellValueFactory(data -> data.getValue().getValue().title);
         authorCol.setCellValueFactory(data -> data.getValue().getValue().author);
-        avaCol.setCellValueFactory(data -> data.getValue().getValue().available);
+
         copyNumCol.setCellValueFactory(data -> data.getValue().getValue().copyNum);
 
+        //For Checkout column
         Callback<TreeTableColumn<DashboardTableEntry, String>, TreeTableCell<DashboardTableEntry, String>> cellFactory = o -> new TreeTableCell<DashboardTableEntry, String>() {
 
             final Button btn = new Button("Checkout");
@@ -119,7 +123,7 @@ public class DashboardController implements Initializable {
                     setText(null);
                 } else {
                     btn.setOnAction(event -> {
-                        DashboardTableEntry entry = getTreeTableView().getTreeItem(getIndex()).getValue();//getTableView().getItems().get(getIndex());
+                        DashboardTableEntry entry = getTreeTableView().getTreeItem(getIndex()).getValue();
                         showToCheckoutPage(entry.book);
                     });
                     setGraphic(btn);
@@ -130,6 +134,30 @@ public class DashboardController implements Initializable {
 
         actionCol.setCellFactory(cellFactory);
 
+        //
+        Callback<TreeTableColumn<DashboardTableEntry, String>, TreeTableCell<DashboardTableEntry, String>> cellFactoryCopy = o -> new TreeTableCell<DashboardTableEntry, String>() {
+
+            final Button btn = new Button("Add New");
+
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    btn.setOnAction(event -> {
+                        DashboardTableEntry entry = getTreeTableView().getTreeItem(getIndex()).getValue();
+                        showAddBookCopyPage(entry.book);
+                    });
+                    setGraphic(btn);
+                    setText(null);
+                }
+            }
+        };
+
+        addNewCol.setCellFactory(cellFactoryCopy);
+
     }
 
     private void showToCheckoutPage(Book book) {
@@ -139,7 +167,22 @@ public class DashboardController implements Initializable {
             ConfirmationController ctrl = loader.getController();
             ctrl.initializeDate(null, book);
             Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setTitle("Confirm Checkout");
+            stage.setTitle("Checkout");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAddBookCopyPage(Book book) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/CreateBookCopy.fxml"));
+            Parent root = loader.load();
+            CreateBookCopyController ctrl = loader.getController();
+            ctrl.initializeData(book.getIsbn());
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Add New Book");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -168,11 +211,11 @@ public class DashboardController implements Initializable {
         StringProperty copyNum;
         Book book;
 
-        public DashboardTableEntry(Book book, String isbn, String title, String author, String available, String copyNum) {
+        public DashboardTableEntry(Book book, String isbn, String title, String author, String copyNum) {
             this.isbn = new SimpleStringProperty(isbn);
             this.title = new SimpleStringProperty(title);
             this.author = new SimpleStringProperty(author);
-            this.available = new SimpleStringProperty(available);
+            //this.available = new SimpleStringProperty(available);
             this.copyNum = new SimpleStringProperty(copyNum);
             this.book = book;
 
