@@ -46,6 +46,9 @@ public class DashboardController implements Initializable {
     private Label libOn;
 
     @FXML
+    private JFXButton addMemberBtn;
+
+    @FXML
     private JFXTreeTableView<DashboardTableEntry> treeViewJFX;
 
     @FXML
@@ -69,23 +72,15 @@ public class DashboardController implements Initializable {
     @FXML
     private JFXTextField searchField;
 
+    ObservableList<DashboardTableEntry> dashboardTableEntryObservableList;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userNameLabel.setText(User.getLoggedInUser().getUsername());
 
-        //Roles visibility
-        if(User.getLoggedInUser().hasAuth(Auth.ADMIN)) {
-            adminOn.setVisible(true);
-            libOn.setVisible((false));
-        }
-        else {
-            adminOn.setVisible(false);
-            libOn.setVisible(true);
-        }
-
         List<Book> books = bookService.getAllBooks();
-        ObservableList<DashboardTableEntry> dashboardTableEntryObservableList = FXCollections.observableArrayList();
+        dashboardTableEntryObservableList = FXCollections.observableArrayList();
 
         List<DashboardTableEntry> bookEntries = books.stream().map(book -> {
             StringBuilder authorName = new StringBuilder();
@@ -93,7 +88,7 @@ public class DashboardController implements Initializable {
                     book.getAuthors()) {
                 authorName.append(a.getFullName()).append(", ");
             }
-            return new DashboardTableEntry(book, book.getIsbn(), book.getTitle(), authorName.toString() , book.getNumCopies()+"");
+            return new DashboardTableEntry(book, book.getIsbn(), book.getTitle(), authorName.toString(), book.getNumCopies() + "");
         }).collect(Collectors.toList());
 
         dashboardTableEntryObservableList.setAll(bookEntries);
@@ -131,8 +126,6 @@ public class DashboardController implements Initializable {
             }
         };
 
-        actionCol.setCellFactory(cellFactory);
-
         //
         Callback<TreeTableColumn<DashboardTableEntry, String>, TreeTableCell<DashboardTableEntry, String>> cellFactoryCopy = o -> new TreeTableCell<DashboardTableEntry, String>() {
 
@@ -155,32 +148,58 @@ public class DashboardController implements Initializable {
             }
         };
 
-        addNewCol.setCellFactory(cellFactoryCopy);
-
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         searchField.textProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     pause.setOnFinished(event -> {
-                        dashboardTableEntryObservableList.setAll(bookEntries.stream().filter(item -> item.title.toString().contains(newValue)).collect(Collectors.toList()));
+                        dashboardTableEntryObservableList.setAll(bookEntries.stream().filter(item -> item.title.toString().toLowerCase().contains(newValue.toLowerCase())).collect(Collectors.toList()));
                     });
                     pause.playFromStart();
                 }
         );
 
+        //Add member button
+        if (User.getLoggedInUser().hasAuth(Auth.ADMIN)) {
+            addMemberBtn.setVisible(true);
+            adminOn.setVisible(true);
+        }
+
+        if (User.getLoggedInUser().hasAuth(Auth.LIBRARIAN)) {
+            addNewCol.setCellFactory(cellFactoryCopy);
+            actionCol.setCellFactory(cellFactory);
+            libOn.setVisible(true);
+        }
+    }
+
+    public void showErrorPopUp() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/PopUp.fxml"));
+        Parent root = loader.load();
+        PopUpController ctrl = loader.getController();
+        ctrl.initializeData(false, "No more copy of book available");
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setTitle("Error");
+        stage.setScene(new Scene(root));
+        stage.show();
+        stage.setResizable(false);
     }
 
     private void showCheckoutPage(Book book) {
+
         try {
+            if (!book.isAvailable()){
+                showErrorPopUp();
+                return;
+            }
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/MemberConfirmation.fxml"));
             Parent root = loader.load();
             MemberConfirmationController ctrl = loader.getController();
-            ctrl.initializeData(book);
+            ctrl.initializeData(book, dashboardTableEntryObservableList);
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Associate member with checkout");
             stage.setScene(new Scene(root));
             stage.show();
             stage.setResizable(false);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -190,7 +209,7 @@ public class DashboardController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/CreateBookCopy.fxml"));
             Parent root = loader.load();
             CreateBookCopyController ctrl = loader.getController();
-            ctrl.initializeData(book.getIsbn());
+            ctrl.initializeData(book.getIsbn(), dashboardTableEntryObservableList);
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Add New Book");
             stage.setScene(new Scene(root));
@@ -203,7 +222,7 @@ public class DashboardController implements Initializable {
     public void logout(Event event) throws Exception{
         User.setLoggedInUser(null);
         Parent root = FXMLLoader.load(getClass().getResource("../resources/Login.fxml"));
-        Scene scene = new Scene(root, 572, 491);
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Login");
         stage.setScene(scene);
@@ -212,7 +231,7 @@ public class DashboardController implements Initializable {
         stage1.close();
     }
 
-    class DashboardTableEntry extends RecursiveTreeObject<DashboardTableEntry>{
+    static class DashboardTableEntry extends RecursiveTreeObject<DashboardTableEntry>{
 
         StringProperty isbn;
         StringProperty title;
@@ -234,9 +253,8 @@ public class DashboardController implements Initializable {
 
     //Scene Navigation
     public void addMember(Event event) throws Exception {
-        //Auth.LIBRARIAN =
         Parent root = FXMLLoader.load(getClass().getResource("../resources/CreateMember.fxml"));
-        Scene scene = new Scene(root, 530, 368);
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Add Member");
         stage.setResizable(false);
@@ -245,6 +263,7 @@ public class DashboardController implements Initializable {
         stage.setResizable(false);
 
     }
+
 
 
 

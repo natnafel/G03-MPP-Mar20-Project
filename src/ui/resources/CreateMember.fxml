@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="368.0" prefWidth="530.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CreateMemberController">
+<AnchorPane prefHeight="368.0" prefWidth="530.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.CreateMemberController">
    <children>
-      <Label layoutX="202.0" layoutY="24.0" text="ADD MEMBER">
+      <Label layoutX="185.0" layoutY="20.0" text="ADD MEMBER">
          <font>
             <Font size="19.0" />
          </font>
@@ -18,7 +18,7 @@
       <JFXTextField fx:id="memberId" layoutX="91.0" layoutY="122.0" promptText="MEMBER ID" unFocusColor="#ffffff00" />
       <JFXTextField fx:id="telephoneField" layoutX="295.0" layoutY="122.0" promptText="TELEPHONE" unFocusColor="#42212100" />
       <JFXTextField fx:id="streetField" layoutX="91.0" layoutY="200.0" promptText="STREET" unFocusColor="WHITE" />
-      <Label layoutX="218.0" layoutY="174.0" prefHeight="16.0" prefWidth="96.0" text="ADDRESS">
+      <Label layoutX="217.0" layoutY="175.0" prefHeight="16.0" prefWidth="96.0" text="ADDRESS">
          <font>
             <Font size="14.0" />
          </font>
@@ -26,7 +26,7 @@
       <JFXTextField fx:id="cityField" layoutX="295.0" layoutY="200.0" promptText="CITY" unFocusColor="WHITE" />
       <JFXTextField fx:id="stateField" layoutX="91.0" layoutY="242.0" promptText="STATE" unFocusColor="#ffffff00" />
       <JFXTextField fx:id="zipField" layoutX="295.0" layoutY="242.0" promptText="ZIP" unFocusColor="#4d4d4d00" />
-      <JFXButton layoutX="207.0" layoutY="297.0" onMouseClicked="#addMember" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #b56011" text="SUBMIT" textFill="WHITE" />
-      <Label fx:id="errorMsg" layoutX="176.0" layoutY="61.0" text="All fields are required" textFill="#fff" visible="false" />
+      <JFXButton layoutX="190.0" layoutY="297.0" onMouseClicked="#addMember" prefHeight="37.0" prefWidth="117.0" style="-fx-background-color: #b56011" text="SUBMIT" textFill="WHITE" />
+      <Label fx:id="errorMsg" layoutX="183.0" layoutY="52.0" text="All fields are required" textFill="#D34A35" visible="false" />
    </children>
 </AnchorPane>
