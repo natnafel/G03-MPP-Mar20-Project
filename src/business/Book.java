@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
 
 /**
  *
@@ -77,7 +78,7 @@ final public class Book implements Serializable {
 	}
 	
 	public int getNumCopies() {
-		return copies.size();
+		return (int) copies.stream().filter(BookCopy::isAvailable).count();
 	}
 	
 	public String getTitle() {

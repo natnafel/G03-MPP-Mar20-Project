@@ -22,7 +22,7 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class AfterCheckoutController implements Initializable{
+public class AfterCheckoutController {
 
     private CheckoutRecord checkoutRecord;
 
@@ -49,6 +49,7 @@ public class AfterCheckoutController implements Initializable{
 
     public void initializeData(CheckoutRecord checkoutRecord){
         this.checkoutRecord = checkoutRecord;
+        initze();
     }
 
     @FXML
@@ -56,8 +57,7 @@ public class AfterCheckoutController implements Initializable{
         ((Stage) afterCheckoutPane.getScene().getWindow()).close();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void initze() {
         isbnColumn.setCellValueFactory(data -> data.getValue().getValue().isbn);
         titleColumn.setCellValueFactory(data -> data.getValue().getValue().title);
         authorColumn.setCellValueFactory(data -> data.getValue().getValue().author);

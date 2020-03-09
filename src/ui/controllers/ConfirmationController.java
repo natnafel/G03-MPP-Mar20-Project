@@ -19,7 +19,7 @@ public class ConfirmationController {
     private Book book;
 
     public void initializeDate(LibraryMember libraryMember, Book book){
-        this.libraryMember = libraryMember;
+        this.libraryMember = (new AccountService()).findMemberByMemberId("REG-1");// TODO replace hard code
         this.book = book;
     }
 
@@ -39,11 +39,12 @@ public class ConfirmationController {
 
     private void showAfterCheckoutStage(CheckoutRecord checkoutRecord) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/AfterCheckout.fxml"));
-        AfterCheckoutController controller = loader.getController();
-        controller.initializeData(checkoutRecord);
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setTitle("Successful Checkout");
         stage.setScene(new Scene(loader.load()));
+        AfterCheckoutController controller = loader.getController();
+        controller.initializeData(checkoutRecord);
         stage.show();
+        stage.setResizable(false);
     }
 }
