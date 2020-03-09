@@ -20,8 +20,11 @@ final public class LibraryMember extends Person implements Serializable {
 		return memberId;
 	}
 
-	
-	
+	public LibraryMember(int id, String memberId, String f, String l, String t, Address a) {
+		super(id, f, l, t, a);
+		this.memberId = memberId;
+	}
+
 	@Override
 	public String toString() {
 		return "Member Info: " + "ID: " + memberId + ", name: " + getFirstName() + " " + getLastName() + 

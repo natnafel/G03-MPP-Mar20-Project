@@ -4,9 +4,10 @@
 
 .label {
    -fx-text-fill: #000099;
+    -fx-font-family: Harry;
 }
 
 
-@font-face {font-family: 'harry';
-    src: url('/lib/harry.ttf');
+@font-face {font-family: Harry;
+    src: url('HARRYP__.TTF');
 }

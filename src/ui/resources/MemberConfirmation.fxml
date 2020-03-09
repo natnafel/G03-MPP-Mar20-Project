@@ -5,13 +5,13 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="347.0" prefWidth="600.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.resources.MemberConfirmation">
+<AnchorPane prefHeight="347.0" prefWidth="600.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.MemberConfirmationController">
    <children>
       <ToolBar layoutX="178.0" layoutY="50.0" prefHeight="40.0" prefWidth="245.0" style="-fx-background-color: fff2e6;">
         <items>
-            <JFXTextField prefHeight="27.0" prefWidth="225.0" promptText="Member Id" />
+            <JFXTextField fx:id="memberId" prefHeight="27.0" prefWidth="225.0" promptText="Member Id" />
         </items>
       </ToolBar>
-      <JFXButton style="-fx-background-color: #b56011;" buttonType="RAISED" layoutX="242.0" layoutY="147.0" mnemonicParsing="false" text="Checkout" />
+      <JFXButton buttonType="RAISED" layoutX="242.0" layoutY="147.0" mnemonicParsing="false" onAction="#checkout" style="-fx-background-color: #b56011;" text="Checkout" />
    </children>
 </AnchorPane>
