@@ -2,11 +2,13 @@ package ui.controllers;
 
 import business.*;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.controls.JFXTreeTableView;
 
 import dataaccess.AccountRepository;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,9 +35,6 @@ import java.util.stream.Collectors;
 public class DashboardController implements Initializable {
 
     private BookService bookService = new BookService();
-    private AccountRepository accRepo = new AccountRepository();
-
-    private JFXButton checkoutBtn;
 
     @FXML
     private Label userNameLabel;
@@ -66,6 +66,9 @@ public class DashboardController implements Initializable {
     @FXML
     private TreeTableColumn<DashboardTableEntry, String> copyNumCol;
 
+    @FXML
+    private JFXTextField searchField;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,14 +87,16 @@ public class DashboardController implements Initializable {
         List<Book> books = bookService.getAllBooks();
         ObservableList<DashboardTableEntry> dashboardTableEntryObservableList = FXCollections.observableArrayList();
 
-        dashboardTableEntryObservableList.setAll(books.stream().map(book -> {
+        List<DashboardTableEntry> bookEntries = books.stream().map(book -> {
             StringBuilder authorName = new StringBuilder();
             for (Author a :
                     book.getAuthors()) {
                 authorName.append(a.getFullName()).append(", ");
             }
             return new DashboardTableEntry(book, book.getIsbn(), book.getTitle(), authorName.toString() , book.getNumCopies()+"");
-        }).collect(Collectors.toList()));
+        }).collect(Collectors.toList());
+
+        dashboardTableEntryObservableList.setAll(bookEntries);
 
         final TreeItem<DashboardTableEntry> root = new RecursiveTreeItem<>(dashboardTableEntryObservableList, RecursiveTreeObject::getChildren);
 
@@ -151,6 +156,16 @@ public class DashboardController implements Initializable {
         };
 
         addNewCol.setCellFactory(cellFactoryCopy);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        searchField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    pause.setOnFinished(event -> {
+                        dashboardTableEntryObservableList.setAll(bookEntries.stream().filter(item -> item.title.toString().contains(newValue)).collect(Collectors.toList()));
+                    });
+                    pause.playFromStart();
+                }
+        );
 
     }
 

@@ -10,29 +10,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="490.0" prefWidth="834.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.DashboardController">
+<AnchorPane prefHeight="490.0" prefWidth="834.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.DashboardController">
     <children>
-        <Label fx:id="userNameLabel" layoutX="29.0" layoutY="18.0" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffe6cc;" text="USERNAME" textFill="#9f5011">
-            <font>
-                <Font name="Harry P" size="27.0" />
-            </font></Label>
       <AnchorPane layoutX="14.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffe6cc;">
          <children>
               <ScrollPane layoutX="33.0" layoutY="84.0" prefHeight="522.0" prefWidth="953.0">
                   <content>
                       <JFXTreeTableView fx:id="treeViewJFX" prefHeight="519.0" prefWidth="951.0">
                           <columns>
-                              <TreeTableColumn fx:id="isbnCol" prefWidth="127.0" text="ISBN"  style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="titleCol" prefWidth="225.0" text="TITLE"  style="-fx-background-color: #b56011;"/>
-                              <TreeTableColumn fx:id="authorCol" prefWidth="210.0" text="AUTHOR"  style="-fx-background-color: #b56011;"/>
-                              <TreeTableColumn fx:id="copyNumCol" minWidth="5.0" prefWidth="123.0" text="AVAILABLE COPIES"  style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="addNewCol" minWidth="5.0" prefWidth="129.0" text="ADD COPY"  style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="actionCol" minWidth="5.0" prefWidth="135.0" text="BURROW" style="-fx-background-color: #b56011;"/>
+                              <TreeTableColumn fx:id="isbnCol" prefWidth="127.0" style="-fx-background-color: #ffca99;" text="ISBN" />
+                              <TreeTableColumn fx:id="titleCol" prefWidth="225.0" style="-fx-background-color: #ffca99;" text="TITLE" />
+                              <TreeTableColumn fx:id="authorCol" prefWidth="210.0" style="-fx-background-color: #ffca99;" text="AUTHOR" />
+                              <TreeTableColumn fx:id="copyNumCol" minWidth="5.0" prefWidth="123.0" style="-fx-background-color: #ffca99;" text="AVAILABLE COPIES" />
+                              <TreeTableColumn fx:id="addNewCol" minWidth="5.0" prefWidth="129.0" style="-fx-background-color: #ffca99;" text="ADD COPY" />
+                              <TreeTableColumn fx:id="actionCol" minWidth="5.0" prefWidth="135.0" style="-fx-background-color: #ffca99;" text="BURROW" />
                           </columns>
                       </JFXTreeTableView>
                   </content>
               </ScrollPane>
-              <JFXTextField layoutX="559.0" layoutY="22.0" promptText="Search" unFocusColor="#979797" />
+              <JFXTextField fx:id="searchField" layoutX="559.0" layoutY="22.0" promptText="Search" unFocusColor="#979797" />
               <JFXButton fx:id="addMemberBtn" buttonType="RAISED" layoutX="740.0" layoutY="17.0" onMouseClicked="#addMember" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #9f5011;" text="ADD MEMBER" textFill="WHITE" />
               <JFXButton buttonType="RAISED" layoutX="886.0" layoutY="16.0" onMouseClicked="#logout" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #ff622e;" text="Logout" textFill="WHITE" />
          </children>
@@ -52,5 +48,9 @@
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding></Label>
+        <Label fx:id="userNameLabel" layoutX="29.0" layoutY="18.0" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffe6cc;" text="USERNAME" textFill="#9f5011">
+            <font>
+                <Font name="Harry P" size="27.0" />
+            </font></Label>
     </children>
 </AnchorPane>
