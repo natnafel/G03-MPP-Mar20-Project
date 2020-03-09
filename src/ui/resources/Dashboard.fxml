@@ -33,7 +33,7 @@
               <JFXButton buttonType="RAISED" layoutX="886.0" layoutY="16.0" onMouseClicked="#logout" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #ff622e;" text="Logout" textFill="WHITE" />
               <Label fx:id="userNameLabel" layoutX="33.0" layoutY="20.0" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffe6cc;" text="USERNAME" textFill="#9f5011">
                   <font>
-                      <Font name="Harry P" size="27.0" />
+                      <Font name="Harr, Ariel" size="21.0" />
                   </font>
             </Label>
          </children>
