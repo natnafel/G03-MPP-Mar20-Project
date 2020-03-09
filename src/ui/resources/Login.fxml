@@ -21,7 +21,7 @@
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="14.0" prefHeight="50.0" prefWidth="292.0" text="HOGWARTS LIBRARY">
                <font>
-                  <Font name="Harry P" size="34.0" />
+                  <Font name="Harr, Ariel" size="24.0" />
                </font>
             </Label>
             <ImageView fitHeight="259.0" fitWidth="269.0" layoutX="149.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
