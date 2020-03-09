@@ -59,7 +59,6 @@ public class CreateMemberController {
         accountService.createMember(firstNameField.getText(), lastNameField.getText(),
                 memberId.getText(), telephoneField.getText(), cityField.getText(), stateField.getText(), zipField.getText(), streetField.getText());
 
-        //TODO show success popup
         successfulScene();
         closeWindow();
 

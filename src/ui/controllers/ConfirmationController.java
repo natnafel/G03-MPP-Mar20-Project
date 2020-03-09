@@ -1,6 +1,8 @@
 package ui.controllers;
 
 import business.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +12,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConfirmationController {
 
@@ -18,9 +22,12 @@ public class ConfirmationController {
     private LibraryMember libraryMember;
     private Book book;
 
-    public void initializeDate(LibraryMember libraryMember, Book book){
+    private ObservableList<DashboardController.DashboardTableEntry> dashboardTableEntryObservableList;
+
+    public void initializeDate(LibraryMember libraryMember, Book book, ObservableList<DashboardController.DashboardTableEntry> dashboardTableEntryObservableList){
         this.libraryMember = libraryMember;
         this.book = book;
+        this.dashboardTableEntryObservableList = dashboardTableEntryObservableList;
     }
 
     @FXML
@@ -29,6 +36,17 @@ public class ConfirmationController {
     @FXML
     private void confirm(Event event) throws IOException {
         showAfterCheckoutStage(bookService.createCheckoutRecord(libraryMember, book));
+        List<Book> books = bookService.getAllBooks();
+        List<DashboardController.DashboardTableEntry> bookEntries = books.stream().map(book -> {
+            StringBuilder authorName = new StringBuilder();
+            for (Author a :
+                    book.getAuthors()) {
+                authorName.append(a.getFullName()).append(", ");
+            }
+            return new DashboardController.DashboardTableEntry(book, book.getIsbn(), book.getTitle(), authorName.toString(), book.getNumCopies() + "");
+        }).collect(Collectors.toList());
+
+        dashboardTableEntryObservableList.setAll(bookEntries);
         closeWindow(null);
     }
 
