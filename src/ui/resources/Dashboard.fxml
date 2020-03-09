@@ -10,24 +10,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="638.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.DashboardController">
+<AnchorPane prefHeight="490.0" prefWidth="834.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.DashboardController">
     <children>
-        <Label fx:id="userNameLabel" layoutX="29.0" layoutY="18.0" prefHeight="32.0" prefWidth="124.0" text="USERNAME" textFill="#9f5011">
+        <Label fx:id="userNameLabel" layoutX="29.0" layoutY="18.0" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffe6cc;" text="USERNAME" textFill="#9f5011">
             <font>
                 <Font name="Harry P" size="27.0" />
             </font></Label>
-      <AnchorPane layoutX="14.0" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane layoutX="14.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffe6cc;">
          <children>
               <ScrollPane layoutX="33.0" layoutY="84.0" prefHeight="522.0" prefWidth="953.0">
                   <content>
                       <JFXTreeTableView fx:id="treeViewJFX" prefHeight="519.0" prefWidth="951.0">
                           <columns>
-                              <TreeTableColumn fx:id="isbnCol" prefWidth="127.0" text="ISBN" />
-                              <TreeTableColumn fx:id="titleCol" prefWidth="225.0" text="TITLE" />
-                              <TreeTableColumn fx:id="authorCol" prefWidth="210.0" text="AUTHOR" />
-                              <TreeTableColumn fx:id="copyNumCol" minWidth="5.0" prefWidth="123.0" text="No. of COPIES" />
-                              <TreeTableColumn fx:id="addNewCol" minWidth="5.0" prefWidth="129.0" text="ADD COPY" />
-                              <TreeTableColumn fx:id="actionCol" minWidth="5.0" prefWidth="135.0" text="BURROW" />
+                              <TreeTableColumn fx:id="isbnCol" prefWidth="127.0" text="ISBN"  style="-fx-background-color: #b56011;" />
+                              <TreeTableColumn fx:id="titleCol" prefWidth="225.0" text="TITLE"  style="-fx-background-color: #b56011;"/>
+                              <TreeTableColumn fx:id="authorCol" prefWidth="210.0" text="AUTHOR"  style="-fx-background-color: #b56011;"/>
+                              <TreeTableColumn fx:id="copyNumCol" minWidth="5.0" prefWidth="123.0" text="AVAILABLE COPIES"  style="-fx-background-color: #b56011;" />
+                              <TreeTableColumn fx:id="addNewCol" minWidth="5.0" prefWidth="129.0" text="ADD COPY"  style="-fx-background-color: #b56011;" />
+                              <TreeTableColumn fx:id="actionCol" minWidth="5.0" prefWidth="135.0" text="BURROW" style="-fx-background-color: #b56011;"/>
                           </columns>
                       </JFXTreeTableView>
                   </content>

@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="afterCheckoutPane" prefHeight="301.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.AfterCheckoutController">
+<AnchorPane fx:id="afterCheckoutPane" prefHeight="301.0" prefWidth="807.0" style="-fx-background-color: #ffe6cc;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.AfterCheckoutController">
     <children>
       <JFXScrollPane layoutX="14.0" layoutY="54.0" prefHeight="175.0" prefWidth="780.0">
          <children>
                 <JFXTreeTableView fx:id="checkoutTable" prefHeight="164.0" prefWidth="780.0">
                     <columns>
-                        <TreeTableColumn fx:id="isbnColumn" prefWidth="146.0" text="ISBN" />
-                        <TreeTableColumn fx:id="titleColumn" prefWidth="193.0" text="TITLE" />
-                        <TreeTableColumn fx:id="authorColumn" prefWidth="178.0" text="AUTHOR" />
-                        <TreeTableColumn fx:id="checkoutDateColumn" minWidth="5.0" prefWidth="142.0" text="CHECKOUT DATE" />
-                        <TreeTableColumn fx:id="dueDateColumn" minWidth="5.0" prefWidth="156.0" text="DUE DATE" />
+                        <TreeTableColumn fx:id="isbnColumn" prefWidth="146.0" style="-fx-background-color: #ffca99;" text="ISBN" />
+                        <TreeTableColumn fx:id="titleColumn" prefWidth="193.0" style=" -fx-text-color: #ffff; -fx-background-color: #ffca99;" text="TITLE" />
+                        <TreeTableColumn fx:id="authorColumn" prefWidth="178.0" style="-fx-background-color: #ffca99;" text="AUTHOR" />
+                        <TreeTableColumn fx:id="checkoutDateColumn" minWidth="5.0" prefWidth="142.0" style="-fx-background-color: #ffca99;" text="CHECKOUT DATE" />
+                        <TreeTableColumn fx:id="dueDateColumn" minWidth="5.0" prefWidth="156.0" style="-fx-background-color: #ffca99;" text="DUE DATE" />
                     </columns>
                 </JFXTreeTableView>
          </children>
@@ -28,6 +28,6 @@
                 <Font name="System Bold" size="17.0" />
             </font>
         </Label>
-        <JFXButton onMouseClicked="#closeWindow" buttonType="RAISED" layoutX="313.0" layoutY="238.0" prefHeight="49.0" prefWidth="149.0" ripplerFill="#79ebf7" style="-fx-background-color: #00dbff;" text="DONE" />
+        <JFXButton buttonType="RAISED" layoutX="313.0" layoutY="238.0" onMouseClicked="#closeWindow" prefHeight="49.0" prefWidth="149.0" ripplerFill="#79ebf7" style="-fx-background-color: #b35600;" text="DONE" textFill="WHITE" />
     </children>
 </AnchorPane>
