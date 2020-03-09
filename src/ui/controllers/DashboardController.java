@@ -1,6 +1,7 @@
 package ui.controllers;
 
 import business.*;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -19,10 +20,10 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,6 +36,8 @@ public class DashboardController implements Initializable {
 
     private BookService bookService = new BookService();
     private AccountRepository accRepo = new AccountRepository();
+
+    private JFXButton checkoutBtn;
 
     @FXML
     private Label userNameLabel;
@@ -90,7 +93,7 @@ public class DashboardController implements Initializable {
                     book.getAuthors()) {
                 authorName.append(a.getFullName()).append(", ");
             }
-            return new DashboardTableEntry(book.getIsbn(), book.getTitle(), authorName.toString(), book.isAvailable()+"", " ", book.getNumCopies()+"");
+            return new DashboardTableEntry(book, book.getIsbn(), book.getTitle(), authorName.toString(), book.isAvailable()+"" , book.getNumCopies()+"");
         }).collect(Collectors.toList()));
 
         final TreeItem<DashboardTableEntry> root = new RecursiveTreeItem<>(dashboardTableEntryObservableList, RecursiveTreeObject::getChildren);
@@ -102,9 +105,46 @@ public class DashboardController implements Initializable {
         titleCol.setCellValueFactory(data -> data.getValue().getValue().title);
         authorCol.setCellValueFactory(data -> data.getValue().getValue().author);
         avaCol.setCellValueFactory(data -> data.getValue().getValue().available);
-        actionCol.setCellValueFactory(data -> data.getValue().getValue().available);
         copyNumCol.setCellValueFactory(data -> data.getValue().getValue().copyNum);
 
+        Callback<TreeTableColumn<DashboardTableEntry, String>, TreeTableCell<DashboardTableEntry, String>> cellFactory = o -> new TreeTableCell<DashboardTableEntry, String>() {
+
+            final Button btn = new Button("Checkout");
+
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    btn.setOnAction(event -> {
+                        DashboardTableEntry entry = getTreeTableView().getTreeItem(getIndex()).getValue();//getTableView().getItems().get(getIndex());
+                        showToCheckoutPage(entry.book);
+                    });
+                    setGraphic(btn);
+                    setText(null);
+                }
+            }
+        };
+
+        actionCol.setCellFactory(cellFactory);
+
+    }
+
+    private void showToCheckoutPage(Book book) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/CheckoutConfirmation.fxml"));
+            Parent root = loader.load();
+            ConfirmationController ctrl = loader.getController();
+            ctrl.initializeDate(null, book);
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Confirm Checkout");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void logout(Event event) throws Exception{
@@ -125,16 +165,16 @@ public class DashboardController implements Initializable {
         StringProperty title;
         StringProperty author;
         StringProperty available;
-        StringProperty action;
         StringProperty copyNum;
+        Book book;
 
-        public DashboardTableEntry(String isbn, String title, String author, String available, String action, String copyNum) {
+        public DashboardTableEntry(Book book, String isbn, String title, String author, String available, String copyNum) {
             this.isbn = new SimpleStringProperty(isbn);
             this.title = new SimpleStringProperty(title);
             this.author = new SimpleStringProperty(author);
             this.available = new SimpleStringProperty(available);
-            this.action = new SimpleStringProperty(action);
             this.copyNum = new SimpleStringProperty(copyNum);
+            this.book = book;
 
         }
     }

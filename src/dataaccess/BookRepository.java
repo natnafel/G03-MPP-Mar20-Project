@@ -157,12 +157,12 @@ public class BookRepository {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO checkoutRecord " +
                     "(book_copy_id, member_id, checkoutDate, dueDate, returnedDate, paidDate, finePaid) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setInt(1, checkoutRecord.getBookCopy().getBook().getId());
+            preparedStatement.setInt(1, checkoutRecord.getBookCopy().getId());
             preparedStatement.setInt(2, checkoutRecord.getMember().getId());
             preparedStatement.setDate(3, Date.valueOf(checkoutRecord.getCheckoutDate()));
             preparedStatement.setDate(4, Date.valueOf(checkoutRecord.getDueDate()));
-            preparedStatement.setDate(5, Date.valueOf(checkoutRecord.getReturnedDate()));
-            preparedStatement.setDate(6, Date.valueOf(checkoutRecord.getPaidDate()));
+            preparedStatement.setDate(5, checkoutRecord.getReturnedDate() != null ? Date.valueOf(checkoutRecord.getReturnedDate()) : null);
+            preparedStatement.setDate(6, checkoutRecord.getPaidDate() != null ? Date.valueOf(checkoutRecord.getPaidDate()) : null);
             preparedStatement.setDouble(7, checkoutRecord.getFinePaid());
 
             preparedStatement.executeUpdate();

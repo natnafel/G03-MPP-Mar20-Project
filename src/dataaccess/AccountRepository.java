@@ -56,7 +56,7 @@ public class AccountRepository {
                     "join address a on m.address_id = a.id where memberId = ?");
             preparedStatement.setString(1, memberId);
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs.first()){
+            if (rs.next()){
                 Address address = new Address(rs.getString("street"), rs.getString("city"),
                         rs.getString("state"), rs.getString("zip"));
                 return new LibraryMember(memberId, rs.getString("firstName"),
