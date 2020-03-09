@@ -22,12 +22,12 @@
                   <content>
                       <JFXTreeTableView fx:id="treeViewJFX" prefHeight="519.0" prefWidth="951.0">
                           <columns>
-                              <TreeTableColumn fx:id="isbnCol" prefWidth="127.0" text="ISBN" style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="titleCol" prefWidth="225.0" text="TITLE" style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="authorCol" prefWidth="210.0" text="AUTHOR" style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="avaCol" minWidth="5.0" prefWidth="129.0" text="AVAIBILITY" style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="copyNumCol" minWidth="5.0" prefWidth="123.0" text="COPY NUM" style="-fx-background-color: #b56011;" />
-                              <TreeTableColumn fx:id="actionCol" minWidth="5.0" prefWidth="135.0" text="ACTION" style="-fx-background-color: #b56011;" />
+                              <TreeTableColumn fx:id="isbnCol" prefWidth="127.0" text="ISBN"  style="-fx-background-color: #b56011;" />
+                              <TreeTableColumn fx:id="titleCol" prefWidth="225.0" text="TITLE"  style="-fx-background-color: #b56011;"/>
+                              <TreeTableColumn fx:id="authorCol" prefWidth="210.0" text="AUTHOR"  style="-fx-background-color: #b56011;"/>
+                              <TreeTableColumn fx:id="copyNumCol" minWidth="5.0" prefWidth="123.0" text="AVAILABLE COPIES"  style="-fx-background-color: #b56011;" />
+                              <TreeTableColumn fx:id="addNewCol" minWidth="5.0" prefWidth="129.0" text="ADD COPY"  style="-fx-background-color: #b56011;" />
+                              <TreeTableColumn fx:id="actionCol" minWidth="5.0" prefWidth="135.0" text="BURROW" style="-fx-background-color: #b56011;"/>
                           </columns>
                       </JFXTreeTableView>
                   </content>
